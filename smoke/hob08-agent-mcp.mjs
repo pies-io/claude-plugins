@@ -20,7 +20,7 @@ async function listTools() {
     for (;;) {
       const { value, done } = await reader.read();
       if (done) break;
-      buf += dec.decode(value, { stream: true });
+      buf += dec.decode(value, { stream: true }).replace(/\r/g, '');
       let i;
       while ((i = buf.indexOf('\n\n')) >= 0) {
         const ev = buf.slice(0, i); buf = buf.slice(i + 2);
