@@ -1,0 +1,7 @@
+{
+  "name": "pies",
+  "owner": { "name": "PIES", "url": "https://pies.io" },
+  "plugins": [
+    { "name": "pies", "source": "./plugins/pies", "description": "Build and run data apps in PIES Studio Hobby from Claude Code (Studio MCP server + /pies-build, /pies-run, /pies-explain)." }
+  ]
+}

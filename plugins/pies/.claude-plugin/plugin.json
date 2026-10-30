@@ -1,0 +1,7 @@
+{
+  "name": "pies",
+  "version": "0.1.0",
+  "description": "Drive PIES Studio (Hobby or Enterprise) through its MCP server: build an app, run it, ask it what it does.",
+  "author": { "name": "PIES", "url": "https://pies.io" },
+  "license": "MIT"
+}
