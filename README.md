@@ -32,9 +32,9 @@ Started Hobby with `PIES_DESKTOP_PORT_OFFSET=N`? Use port `19085+N` (Studio AI S
 - `/pies-run` builds the preview, opens the running app (Sign in with PIES Studio) and the Studio editor.
 - `/pies-explain` asks the app what it does.
 
-## Known issues (PV-4365)
-- Writes need a client_id; on Hobby it is `pies-hobby-desktop`.
-- After the menu is saved, tool calls can time out for a few minutes; your work is saved.
+## Known issues
+- On a multi-tenant (Enterprise) server, writes need the client_id of an existing app; Hobby fills it in.
+- On older Hobby builds, tool calls can time out for a few minutes after the menu is saved; your work is saved.
 
 ## Privacy
 Nothing leaves your computer except what your agent sends to its own model provider.
