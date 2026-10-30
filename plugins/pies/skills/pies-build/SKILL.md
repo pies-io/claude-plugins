@@ -5,7 +5,9 @@ description: Build a working PIES Studio app (tables, sample rows, screens, dash
 
 Build the app the user described in PIES Studio, using only the `pies` MCP tools. Follow this order; it is the recipe that built a working Job Tracker on Hobby.
 
-1. **Find the local user and client_id.** Every tool needs `user_email`: use `$PIES_USER_EMAIL` if set, otherwise ask the user for the email they sign in to PIES Studio with. Call `list_apps` with it first; the user id and client_id of existing apps are the ones to reuse. On a single-tenant install (Hobby) client_id may be omitted: Studio uses the install's tenant. On a multi-tenant server, pass the client_id of an existing app.
+**Carry the build through to the end without stopping to ask.** The only thing you may ask for is the sign-in email when `$PIES_USER_EMAIL` is unset and the prompt does not give one. Never ask the user for an app id, user id or workspace id: get them from the tools (`list_apps`, `list_workspaces`, the id `create_app` returns). If a call fails, read the error, fix the arguments and retry; do not hand the plan back to the user.
+
+1. **Find the local user and client_id.** Every tool needs `user_email`: use `$PIES_USER_EMAIL` if set, otherwise ask the user for the email they sign in to PIES Studio with. Call `list_apps` with it first; the user id and client_id of existing apps are the ones to reuse. On a single-tenant install (Hobby) client_id may be omitted: Studio uses the install's tenant. On a multi-tenant server (Enterprise, or a dev stack) use `$PIES_CLIENT_ID` or a client_id given in the prompt; if create_app answers "client_id is required" and you have none, that is the one case to stop and ask for the tenant (client) id.
 2. **create_app** with that user and client_id. Keep the returned app id.
 3. **compile_data_spec**: one-word snake_case table names (`customers`, `jobs`). A status field is an enum; give its values.
 4. **save_generated_tables** with explicit ids and 5–10 sample rows per table. Check that enum fields only use the listed values.

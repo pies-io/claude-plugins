@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // HOB08 "agent via MCP": connect to the Studio MCP sidecar, list tools, then
 // (unless --list-only) run the Job Tracker prompt headlessly with `claude -p`.
+// PIES_CLIENT_ID is passed on multi-tenant servers (Enterprise, dev stacks).
 // PIES_MCP_URL overrides http://127.0.0.1:19085/sse (offset ports, Enterprise).
 import { spawnSync } from 'node:child_process';
 
@@ -68,13 +69,14 @@ const appIds = async () => new Set((await listApps()).map(a => a.id));
 const before = await appIds();
 const pluginDir = new URL('../plugins/pies', import.meta.url).pathname;
 const t0 = Date.now();
-const r = spawnSync('claude', ['-p', `${PROMPT}. My PIES Studio sign-in email is ${email}.`, '--plugin-dir', pluginDir, '--output-format', 'json',
+const r = spawnSync('claude', ['-p', `${PROMPT}. My PIES Studio sign-in email is ${email}.${process.env.PIES_CLIENT_ID ? ` My client_id is ${process.env.PIES_CLIENT_ID}.` : ''}`, '--plugin-dir', pluginDir, '--output-format', 'json',
   '--allowedTools', 'mcp__plugin_pies_pies', 'mcp__pies', 'Skill', '--max-budget-usd', process.env.HOB08_BUDGET_USD || '6'],
   { encoding: 'utf8', timeout: 45 * 60 * 1000, env: { ...process.env, PIES_MCP_URL: url } });
 const mins = ((Date.now() - t0) / 60000).toFixed(1);
 let out = {}; try { out = JSON.parse(r.stdout); } catch {}
 console.log(`HOB08 claude exit=${r.status} turns=${out.num_turns ?? '?'} cost_usd=${out.total_cost_usd ?? '?'} minutes=${mins}`);
 console.log(String(out.result || r.stderr || '').slice(-1500));
+if (out.permission_denials?.length) console.log(`HOB08 permission_denials=${JSON.stringify(out.permission_denials.map(d => d.tool_name))}`);
 session.close();
 session = await connect();
 // Other sessions may create apps meanwhile: take the new one about jobs.
