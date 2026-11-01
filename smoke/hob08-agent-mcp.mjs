@@ -2,10 +2,10 @@
 // HOB08 "agent via MCP": connect to the Studio MCP sidecar, list tools, then
 // (unless --list-only) run the Job Tracker prompt headlessly with `claude -p`.
 // PIES_CLIENT_ID is passed on multi-tenant servers (Enterprise, dev stacks).
-// PIES_MCP_URL overrides http://127.0.0.1:19085/sse (offset ports, Enterprise).
+// PIES_MCP_URL overrides http://127.0.0.1:19085/agent/sse (offset ports, Enterprise).
 import { spawnSync } from 'node:child_process';
 
-const url = process.env.PIES_MCP_URL || 'http://127.0.0.1:19085/sse';
+const url = process.env.PIES_MCP_URL || 'http://127.0.0.1:19085/agent/sse';
 const listOnly = process.argv.includes('--list-only');
 const PROMPT = 'Use /pies-build: a job tracker with customers, jobs with status and due date, and a dashboard';
 

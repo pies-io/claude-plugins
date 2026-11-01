@@ -2,7 +2,10 @@
   "mcpServers": {
     "pies": {
       "type": "sse",
-      "url": "${PIES_MCP_URL:-http://127.0.0.1:19085/sse}"
+      "url": "${PIES_MCP_URL:-http://127.0.0.1:19085/agent/sse}",
+      "headers": {
+        "Authorization": "Bearer ${PIES_MCP_TOKEN:-}"
+      }
     }
   }
 }
