@@ -3,6 +3,6 @@
   "name": "io.pies/studio",
   "description": "Build and run data apps in PIES Studio (Hobby desktop or Enterprise) from a coding agent.",
   "version": "1.9.63",
-  "remotes": [{ "type": "sse", "url": "http://127.0.0.1:19085/sse" }],
+  "remotes": [{ "type": "sse", "url": "http://127.0.0.1:19085/agent/sse" }],
   "repository": { "url": "https://github.com/pies-io/claude-plugins", "source": "github" }
 }

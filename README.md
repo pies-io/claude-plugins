@@ -1,6 +1,6 @@
 # PIES Studio for coding agents
 
-Let Claude Code, Codex CLI or Cursor's agent build and run data apps in PIES Studio Hobby on your own computer. The agent talks to the Studio MCP server that Hobby already runs (`http://127.0.0.1:19085/sse`, local only). Whole-app builds run on your agent's own model; PIES Private AI Micro (Preview) answers offline inside Studio.
+Let Claude Code, Codex CLI or Cursor's agent build and run data apps in PIES Studio Hobby on your own computer. The agent talks to the Studio MCP server that Hobby already runs (`http://127.0.0.1:19085/agent/sse`, local only). Whole-app builds run on your agent's own model; PIES Private AI Micro (Preview) answers offline inside Studio.
 
 ## Requirements
 - PIES Studio Hobby (latest), open.
@@ -14,18 +14,18 @@ Claude Code plugin:
 ```
 Or the plain MCP entry:
 ```
-claude mcp add --transport sse pies http://127.0.0.1:19085/sse
+claude mcp add --transport sse pies http://127.0.0.1:19085/agent/sse
 ```
 Codex CLI (`~/.codex/config.toml`):
 ```toml
 [mcp_servers.pies]
-url = "http://127.0.0.1:19085/sse"
+url = "http://127.0.0.1:19085/agent/sse"
 ```
 Cursor (`.cursor/mcp.json`):
 ```json
-{ "mcpServers": { "pies": { "url": "http://127.0.0.1:19085/sse" } } }
+{ "mcpServers": { "pies": { "url": "http://127.0.0.1:19085/agent/sse" } } }
 ```
-Started Hobby with `PIES_DESKTOP_PORT_OFFSET=N`? Use port `19085+N` (Studio AI Settings shows the exact line). Enterprise: set `PIES_MCP_URL` to your server's MCP URL.
+Started Hobby with `PIES_DESKTOP_PORT_OFFSET=N`? Use port `19085+N` (Studio AI Settings shows the exact line). Enterprise: set `PIES_MCP_URL=https://<studio>/mcp/agent/sse` and `PIES_MCP_TOKEN` to a personal agent token from Studio AI Settings → Connect your coding agent.
 
 ## Skills
 - `/pies-build "<what you want>"` builds tables, sample rows, screens, a dashboard and the menu.
